@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Sign-Up</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .form-container {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .form-container h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container form .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-container form label {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .form-container form input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            background: #f9f9f9;
+        }
+
+        .form-container form input:focus {
+            outline: none;
+            border-color: #007BFF;
+            background: #ffffff;
+        }
+
+        .form-container form button {
+            padding: 10px;
+            border: none;
+            background: #007BFF;
+            color: #fff;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container form button:hover {
+            background: #0056b3;
+        }
+
+        .toggle-container {
+            flex: 1;
+            background: #007BFF;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .toggle-container h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .toggle-container p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .toggle-container button {
+            padding: 10px 15px;
+            border: none;
+            background: #fff;
+            color: #007BFF;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .toggle-container button:hover {
+            background: #0056b3;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div class="form-container" id="login-form">
+            <h2>Login</h2>
+            <form>
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <!-- Sign-Up Form -->
+        <div class="toggle-container">
+            <h3>New Here?</h3>
+            <p>Sign up now to create an account and enjoy our services!</p>
+            <button onclick="toggleForm()">Sign Up</button>
+        </div>
+
+        <!-- Sign-Up Form (Hidden Initially) -->
+        <div class="form-container" id="signup-form" style="display: none;">
+            <h2>Sign Up</h2>
+            <form>
+                <div class="form-group">
+                    <label for="signup-name">Name</label>
+                    <input type="text" id="signup-name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm() {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const toggleContainer = document.querySelector('.toggle-container');
+
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                signupForm.style.display = 'none';
+                toggleContainer.querySelector('h3').textContent = 'New Here?';
+                toggleContainer.querySelector('p').textContent = 'Sign up now to create an account and enjoy our services!';
+                toggleContainer.querySelector('button').textContent = 'Sign Up';
+            } else {
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'block';
+                toggleContainer.querySelector('h3').textContent = 'Already have an account?';
+                toggleContainer.querySelector('p').textContent = 'Login to continue using your account.';
+                toggleContainer.querySelector('button').textContent = 'Login';
+            }
+        }
+    </script>
+</body>
+</html>

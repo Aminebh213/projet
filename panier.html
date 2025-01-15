@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panier</title>
+    <link rel="stylesheet" href="panier.css">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #851d1d;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(169, 9, 9, 0.1);
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        ul#cart-items li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            background: #f4f4f4;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease-in-out;
+        }
+
+        ul#cart-items li:hover {
+            background: #e8f1ff;
+        }
+
+        .remove-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background-color: #bd2130;
+        }
+
+        #total-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+            padding: 10px 15px;
+            color: white;
+            background-color: #007BFF;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Votre Panier</h1>
+    </header>
+    <main>
+        <ul id="cart-items"></ul>
+        <p id="total-price">Total: 0DT</p>
+        <a href="projet.html" class="btn btn-secondary">Continue Shopping</a>
+    </main>
+      
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartItemsElement = document.getElementById('cart-items');
+            const totalPriceElement = document.getElementById('total-price');
+            let cart = JSON.parse(localStorage.getItem('cart')) || []; // Load cart from localStorage
+
+            if (cart.length === 0) {
+                cartItemsElement.innerHTML = '<li>Your cart is empty.</li>';
+                totalPriceElement.textContent = 'Total: 0DT';
+                return;
+            }
+
+            let total = 0;
+
+            // Display cart items
+            cart.forEach((item, index) => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    ${item.name} - ${item.price}
+                    <button class="remove-btn" data-index="${index}">Remove</button>
+                `;
+                cartItemsElement.appendChild(listItem);
+
+                // Update total price
+                total += parseFloat(item.price.replace('DT', ''));
+            });
+
+            totalPriceElement.textContent = `Total: ${total}DT`;
+
+            // Add event listeners for remove buttons
+            const removeButtons = document.querySelectorAll('.remove-btn');
+            removeButtons.forEach((button) => {
+                button.addEventListener('click', (e) => {
+                    const index = e.target.dataset.index;
+                    removeItem(index);
+                });
+            });
+
+            function removeItem(index) {
+                // Remove item from cart
+                cart.splice(index, 1);
+
+                // Save updated cart to localStorage
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+                // Reload the page or update DOM dynamically
+                location.reload(); // Reload page to reflect changes
+            }
+        });
+    </script>
+</body>
+</html>
